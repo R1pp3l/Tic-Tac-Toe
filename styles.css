@@ -40,8 +40,43 @@ body {
 }
 /*--------MAIN CONTENT----------*/
 .main-content {
-  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
   height: 79.5vh;
+  justify-content: center;
+  align-items: center;
+}
+.game-board {
+  border: 5px solid purple;
+  border-radius: 15px;
+  display: grid;
+  grid-template-columns: repeat(3, 150px);
+  grid-template-rows: repeat(3, 150px);
+  margin-bottom: 50px;
+}
+.cell {
+  font-size: 5rem;
+  font-family: "Tilt Neon", cursive;
+  border: 2px solid purple;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.restart-button {
+  border-radius: 10px;
+  border-color: black;
+  border-style: solid;
+  background-color: white;
+  display: flex;
+  font-family: "Tilt Neon", cursive;
+  padding: 0.5em;
+  font-size: 1rem;
+}
+
+#restart-icon {
+  margin-left: 10px;
+  width: 1vw;
+  height: auto;
 }
 /*--------FOOTER----------*/
 .footer {
