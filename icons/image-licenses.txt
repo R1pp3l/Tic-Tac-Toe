@@ -1,1 +1,2 @@
-Tic-Tac-Toe asset: https://www.freepik.com/free-icon/tic-tac-toe_14171674.htm#query=tic%20tac%20toe&position=1&from_view=search&track=ais
+Tic-Tac-Toe asset: https://www.freepik.com/free-icon/tic-tac-toe_14171674.htm#query=tic%20tac%20toe&position=1&from_view=search&track=ais\
+restart / reload asset: https://www.freepik.com/free-icon/reload_15041517.htm#query=restart&position=3&from_view=search&track=sph
