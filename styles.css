@@ -1,0 +1,39 @@
+* {
+  margin: 0;
+  gap: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+}
+
+.header {
+  display: flex;
+  height: 10vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-main-list {
+  display: flex;
+  list-style-type: none;
+}
+
+#title {
+  font-size: 2.2rem;
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+}
+
+.list {
+  margin: 5px;
+}
+
+#tic-tac-toe {
+  width: 3vw;
+  height: auto;
+}
