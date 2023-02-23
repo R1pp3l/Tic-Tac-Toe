@@ -11,6 +11,7 @@ body {
   min-height: 100%;
 }
 
+/*--------HEADER----------*/
 .header {
   display: flex;
   height: 10vh;
@@ -36,4 +37,21 @@ body {
 #tic-tac-toe {
   width: 3vw;
   height: auto;
+}
+/*--------MAIN CONTENT----------*/
+.main-content {
+  border: 1px solid red;
+  height: 79.5vh;
+}
+/*--------FOOTER----------*/
+.footer {
+  font-family: "Roboto Slab", serif;
+  display: flex;
+  margin-top: auto;
+  border: 1px solid blue;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  position: relative;
+  bottom: 0;
 }
