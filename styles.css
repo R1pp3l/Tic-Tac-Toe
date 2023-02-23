@@ -48,7 +48,6 @@ body {
   font-family: "Roboto Slab", serif;
   display: flex;
   margin-top: auto;
-  border: 1px solid blue;
   justify-content: center;
   align-items: center;
   height: 10vh;
