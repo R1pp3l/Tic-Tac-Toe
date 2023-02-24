@@ -1,91 +1,127 @@
-function Gameboard() {
-  this.board = ["", "", "", "", "", "", "", "", ""];
+const Gameboard = {
+  board: ["", "", "", "", "", "", "", "", ""],
+};
+
+const PlayerX = {
+  name: "Player X",
+  symbol: "X",
+};
+
+const PlayerO = {
+  name: "Player O",
+  symbol: "O",
+};
+
+const GameController = {
+  turn: PlayerX,
+  gameOver: false,
+};
+
+function render() {
+  document.querySelectorAll(".cell").forEach((cell, index) => {
+    cell.innerText = Gameboard.board[index];
+  });
 }
 
-function gamePlayers() {
-  const playerOne = {
-    name: "Player 1",
-    symbol: "X",
-    color: "green",
-    makeMove(index, board) {
-      const newBoard = board.slice();
-      if (newBoard[index === ""]) {
-        newBoard[index] = this.symbol;
-        return newBoard;
-      }
-      return false;
-    },
-  };
-
-  const playerTwo = {
-    name: "Player 2",
-    symbol: "O",
-    color: "yellow",
-    makeMove(index, board) {
-      const newBoard = board.slice();
-      if (newBoard[index === ""]) {
-        newBoard[index] = this.symbol;
-        return newBoard;
-      }
-      return false;
-    },
-  };
-  return { playerOne, playerTwo };
+function addMark(id) {
+  const index = parseInt(id.split("-")[1], 10) - 1;
+  if (Gameboard.board[index] === "") {
+    Gameboard.board[index] = GameController.turn.symbol;
+    render();
+    switchTurn();
+  }
 }
 
-function gameController() {
-  const { playerOne, playerTwo } = gamePlayers();
-  let currentPlayer = playerOne;
+document.querySelectorAll(".cell").forEach((cell) => {
+  cell.addEventListener("click", function () {
+    addMark(this.id);
+  });
+});
 
-  function switchTurns() {
-    currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
+function switchTurn() {
+  // eslint-disable-next-line no-use-before-define
+  if (checkForWin()) {
+    // eslint-disable-next-line no-use-before-define
+    showResult(false);
+    return;
   }
 
-  function checkWinner(board) {
-    for (let i = 0; i < 3; i += 3) {
-      if (
-        board[i] !== "" &&
-        board[i] === board[i + 1] &&
-        board[i + 1] === board[i + 2]
-      ) {
-        return board[i];
-      }
-    }
-
-    for (let i = 0; i < 3; i += 1) {
-      if (
-        board[i] !== "" &&
-        board[i] === board[i + 3] &&
-        board[i + 3] === board[i + 6]
-      ) {
-        return board[i];
-      }
-    }
-
-    if (board[0] !== "" && board[0] === board[4] && board[4] === board[8]) {
-      return board[0];
-    }
-
-    if (board[2] !== "" && board[2] === board[4] && board[4] === board[6]) {
-      return board[2];
-    }
-
-    if (!board.included("")) {
-      return "tie";
-    }
-    return null;
+  // eslint-disable-next-line no-use-before-define
+  if (checkForTie()) {
+    // eslint-disable-next-line no-use-before-define
+    showResult("tie");
+    return;
   }
-  return {
-    makeMove(index, board) {
-      if (currentPlayer.makeMove(index, board)) {
-        const winner = checkWinner(board);
-        if (winner !== null) {
-          return winner;
-        }
-        switchTurns();
-        return "continue";
-      }
-      return "invalid";
-    },
-  };
+
+  if (GameController.turn === PlayerX) {
+    GameController.turn = PlayerO;
+    return;
+  }
+
+  GameController.turn = PlayerX;
 }
+
+function checkForWin() {
+  const winCombinations = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+
+  const { board } = Gameboard;
+  return winCombinations.some(
+    (combination) =>
+      board[combination[0]] === board[combination[1]] &&
+      board[combination[1]] === board[combination[2]] &&
+      board[combination[0]] !== ""
+  );
+}
+
+function checkForTie() {
+  return Gameboard.board.every((cell) => cell !== "");
+}
+
+function showResult(result) {
+  let message = "";
+  if (result === false) {
+    message = `${GameController.turn.name} wins!`;
+  } else {
+    message = `It's a tie!`;
+  }
+
+  document.querySelector(".result").innerText = message;
+  document.querySelector(".restart-button").style.display = "block";
+}
+
+// eslint-disable-next-line no-unused-vars
+function computerPlayerTurn() {
+  const emptyCells = [];
+  Gameboard.board.forEach((cell, index) => {
+    if (cell === "") {
+      emptyCells.push(index);
+    }
+  });
+
+  const randomIndex = Math.floor(Math.random() * emptyCells.length);
+  const cellIndex = emptyCells[randomIndex];
+  Gameboard.board[cellIndex] = PlayerO.symbol;
+  render();
+  switchTurn();
+}
+function restartGame() {
+  Gameboard.board = ["", "", "", "", "", "", "", "", ""];
+  GameController.turn = PlayerX;
+  GameController.gameOver = false;
+  document.querySelector(".result").innerText = "";
+  document.querySelector(".restart-button").style.display = "none";
+  render();
+}
+
+document
+  .querySelector(".restart-button")
+  .addEventListener("click", restartGame);
