@@ -55,6 +55,7 @@ body {
   margin-bottom: 50px;
 }
 .cell {
+  background-color: #828385;
   font-size: 5rem;
   font-family: "Tilt Neon", cursive;
   border: 2px solid purple;
@@ -62,6 +63,14 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.result {
+  font-family: "Tilt Neon", cursive;
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 1.5em;
+}
+
 .restart-button {
   border-radius: 10px;
   border-color: black;
